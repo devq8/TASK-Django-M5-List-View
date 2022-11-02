@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from flights.views import FlightListView, BookingListView, BookingDetailView, BookingUpdateView, BookingCancelView
 
-from users.views import UserCreateAPIView
+from users.views import UserCreateAPIView, UserLoginAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,4 +28,5 @@ urlpatterns = [
     path("booking/<int:booking_id>/cancel/", BookingCancelView.as_view(), name="cancel-booking"),
 
     path("register/", UserCreateAPIView.as_view(), name="register"),
+    path("signin/", UserLoginAPIView.as_view(), name="signin"),
 ]
