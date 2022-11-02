@@ -25,3 +25,8 @@ class BookingCancelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = [ 'id', 'flight', 'date', 'passengers', ]
+
+class BookingCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['flight', 'date', 'passengers', ]
