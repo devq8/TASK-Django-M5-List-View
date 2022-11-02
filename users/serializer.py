@@ -1,0 +1,21 @@
+from dataclasses import fields
+from django.contrib.auth.models import User
+from rest_framework import serializers
+
+class UserCreateSerializer(serializers.ModelSerializer):
+    #this code to hide the password in response
+    password = serializers.CharField(write_only=True)
+    class Meta:
+        model = User
+        fields = ["username", "password", "first_name", "last_name"]
+
+    #adjust create method for serializer, so when a User object is created, the password value will be hashed.
+    def create(self, validate_date):
+        username = validate_date["username"]
+        password = validate_date["password"]
+        first_name = validate_date["first_name"]
+        last_name = validate_date["last_name"]
+        new_user = User(username=username, first_name=first_name, last_name=last_name)
+        new_user.set_password(password)
+        new_user.save()
+        return new_user
