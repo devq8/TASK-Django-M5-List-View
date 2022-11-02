@@ -28,5 +28,5 @@ urlpatterns = [
     path("booking/<int:booking_id>/cancel/", BookingCancelView.as_view(), name="cancel-booking"),
 
     path("register/", UserCreateAPIView.as_view(), name="register"),
-    path("signin/", UserLoginAPIView.as_view(), name="signin"),
+    path("signin/", UserLoginAPIView.as_view(), name="login"),
 ]
