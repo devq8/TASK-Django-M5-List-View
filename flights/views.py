@@ -4,6 +4,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView,
 import datetime
 
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from users.permissions import IsOwner, IsAllowedBooking
 
 class FlightListView(ListAPIView):
     queryset = Flight.objects.all()
@@ -18,7 +19,7 @@ class BookingDetailView(RetrieveAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingDetailSerializer
     #Only Staff and the Owner of the booking hae access
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, IsOwner]
     lookup_field = 'id'
     lookup_url_kwarg = 'booking_id'
 
@@ -26,7 +27,7 @@ class BookingUpdateView(UpdateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingUpdateSerializer
     #Only Staff and the Owner of the booking hae access
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, IsOwner, IsAllowedBooking]
     lookup_field = 'id'
     lookup_url_kwarg = 'booking_id'
 
@@ -34,7 +35,7 @@ class BookingCancelView(DestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingCancelSerializer
     #Only Staff and the Owner of the booking hae access
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, IsOwner, IsAllowedBooking]
     lookup_field = 'id'
     lookup_url_kwarg = 'booking_id'
 
